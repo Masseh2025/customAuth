@@ -1,8 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export default function SignIn() {
+  const [message, setMessage] = useState<string | undefined>();
+
   return (
     <>
       <h1>sign in page</h1>
@@ -10,7 +13,7 @@ export default function SignIn() {
         action={async (form: FormData) => {
           const password = form.get("password");
           const email = form.get("email");
-          const data = await fetch("/api/auth/signin", {
+          const res = await fetch("/api/auth/signin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -20,8 +23,9 @@ export default function SignIn() {
               email,
             }),
           });
-          const signedIn = await data.json();
-          console.log(signedIn);
+          const signedIn = await res.json();
+
+          setMessage(signedIn.message);
         }}
       >
         <Input
@@ -40,6 +44,7 @@ export default function SignIn() {
         />
         <Button type="submit">Submit</Button>
       </form>
+      <p>mes:{!message ? "" : message}</p>
     </>
   );
 }
