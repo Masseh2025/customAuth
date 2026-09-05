@@ -25,12 +25,14 @@ export default function SignIn() {
         }}
       >
         <Input
+          required
           type="password"
           placeholder="put in your  password"
           name="password"
           id="password"
         />
         <Input
+          required
           type="email"
           placeholder="put in your email"
           name="email"

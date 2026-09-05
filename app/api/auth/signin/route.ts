@@ -9,10 +9,19 @@ export async function POST(req: Request) {
 
   //Verify it
   const [user] = await db.select().from(users).where(eq(users.email, email));
+
+  if (!user)
+    return Response.json(
+      { message: "invalid user or password" },
+      { status: 401 },
+    );
+
   const isCorrect = await argon2.verify(user.passwordHash, password);
   console.log(isCorrect);
 
   //Create session
+
+  // Send response
   console.log(email, password);
   return Response.json({ email, password, isCorrect });
 }

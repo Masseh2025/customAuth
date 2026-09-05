@@ -33,8 +33,15 @@ export default function Home() {
           placeholder="put a  password"
           name="password"
           id="password"
+          required
         />
-        <Input type="email" placeholder="put a email" name="email" id="email" />
+        <Input
+          type="email"
+          placeholder="put a email"
+          name="email"
+          id="email"
+          required
+        />
         <Button type="submit">Submit</Button>
       </form>
       <div className="border-foreground border-t-2">
