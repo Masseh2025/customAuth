@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   const { password, email } = await req.json();
   const hashedPassord = await argon2.hash(password);
   // insert
-  const user = await db.insert(users).values({
+  await db.insert(users).values({
     passwordHash: hashedPassord,
     email,
   });
