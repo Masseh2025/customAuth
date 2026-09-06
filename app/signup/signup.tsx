@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [message, setMessage] = useState<string | undefined>();
   return (
     <>
       <h1>Sign up page</h1>
@@ -14,7 +16,7 @@ export default function SignUp() {
         action={async (form: FormData) => {
           const password = form.get("password");
           const email = form.get("email");
-          const promise = await fetch("/api/auth/signup", {
+          const res = await fetch("/api/auth/signup", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -24,8 +26,11 @@ export default function SignUp() {
               email,
             }),
           });
-          const data = await promise.json().then(redirect("/signin"));
-          return console.log(data, password, email);
+          const data = await res.json();
+
+          if (data.message) setMessage(data.message);
+          if (!data.message) redirect("/main");
+          return;
         }}
       >
         <Input
@@ -50,6 +55,7 @@ export default function SignUp() {
         <Button className="w-fit">
           <Link href="signin">Sign in</Link>
         </Button>
+        <p>{message ? message : ""}</p>
       </div>
     </>
   );

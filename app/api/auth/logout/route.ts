@@ -17,6 +17,7 @@ export async function POST() {
   //   delete from cookies
 
   cookieStore.delete("session");
+
   return Response.json({
     message: "logged out",
   });
