@@ -1,17 +1,9 @@
-"use client";
+import LogOut from "./logout";
+import getUser from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-
-export default function LogOutPage() {
-  return (
-    <Button
-      onClick={async () => {
-        const res = await fetch("/api/auth/logout", { method: "POST" });
-        const message = await res.json();
-        console.log(message);
-      }}
-    >
-      logout
-    </Button>
-  );
+export default async function LogOutPage() {
+  const user = await getUser();
+  if (!user) redirect("/signup");
+  return <LogOut />;
 }

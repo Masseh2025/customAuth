@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
-import getUser from "@/lib/auth";
+
 import argon2 from "argon2";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";

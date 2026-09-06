@@ -9,7 +9,7 @@ export default async function MainPage() {
   return (
     <>
       <Button>
-        <Link href="/logout">Logout</Link>
+        <Link href="/logout">Logout page</Link>
       </Button>
       {user ? "your signed in" : "please sign in"}
       <h1>Main page</h1>;

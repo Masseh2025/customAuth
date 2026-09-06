@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
+
 import { useState } from "react";
 
 export default function SignUp() {
@@ -47,13 +47,13 @@ export default function SignUp() {
         />
         <Button type="submit">Submit</Button>
       </form>
+      <p>{message ? message : ""}</p>
       <div className="border-foreground border-t-2">
         <p>Already have a account?</p>
 
         <Button className="w-fit">
           <Link href="signin">Sign in</Link>
         </Button>
-        <p>{message ? message : ""}</p>
       </div>
     </>
   );
