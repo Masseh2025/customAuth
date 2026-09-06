@@ -29,8 +29,6 @@ export default function SignUp() {
           const data = await res.json();
 
           if (data.message) setMessage(data.message);
-          if (!data.message) redirect("/main");
-          return;
         }}
       >
         <Input
