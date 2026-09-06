@@ -1,20 +1,19 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
-import Link from "next/link";
-import { redirect } from "next/navigation";
+export function SignIn() {
+  const [message, setMessage] = useState<string | undefined>();
 
-export default function Home() {
   return (
     <>
-      <h1>Sign up page</h1>
+      <h1>sign in page</h1>
       <form
         action={async (form: FormData) => {
           const password = form.get("password");
           const email = form.get("email");
-          const promise = await fetch("/api/auth/signup", {
+          const res = await fetch("/api/auth/signin", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -24,33 +23,28 @@ export default function Home() {
               email,
             }),
           });
-          const data = await promise.json().then(redirect("/signin"));
-          return console.log(data, password, email);
+          const signedIn = await res.json();
+
+          setMessage(signedIn.message);
         }}
       >
         <Input
+          required
           type="password"
-          placeholder="put a  password"
+          placeholder="put in your  password"
           name="password"
           id="password"
-          required
         />
         <Input
+          required
           type="email"
-          placeholder="put a email"
+          placeholder="put in your email"
           name="email"
           id="email"
-          required
         />
         <Button type="submit">Submit</Button>
       </form>
-      <div className="border-foreground border-t-2">
-        <p>Already have a account?</p>
-
-        <Button className="w-fit">
-          <Link href="signin">Sign in</Link>
-        </Button>
-      </div>
+      <p>mes:{!message ? "" : message}</p>
     </>
   );
 }

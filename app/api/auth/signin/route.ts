@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
+import getUser from "@/lib/auth";
 import argon2 from "argon2";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
@@ -22,6 +23,7 @@ export async function POST(req: Request) {
   if (!isCorrect) return Response.json({ message: "Inavlid user or password" });
 
   //Create session
+
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + 7);
 
